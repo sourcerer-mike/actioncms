@@ -55,5 +55,6 @@ before_script:
 - phpenv versions
 - npm --version
 - node --version
+- composer install
 - php make-action-cms.php
 script: grunt $WP_TRAVISCI
