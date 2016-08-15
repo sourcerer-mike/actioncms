@@ -1,0 +1,7 @@
+{
+  "name": "sourcerer-mike/action-cms",
+  "description": "Remove the pain from WordPress and make it a better place.",
+  "require-dev": {
+    "symfony/finder": "~3"
+  }
+}
