@@ -1,4 +1,5 @@
 <?php
+
 /**
  * WordPress Options Administration API.
  *
@@ -6,14 +7,14 @@
  * @subpackage Administration
  * @since 4.4.0
  */
-
 /**
  * Output JavaScript to toggle display of additional settings if avatars are disabled.
  *
  * @since 4.2.0
  */
-function options_discussion_add_js() {
-?>
+function options_discussion_add_js()
+{
+    ?>
 	<script>
 	(function($){
 		var parent = $( '#show_avatars' ),
@@ -23,20 +24,23 @@ function options_discussion_add_js() {
 		});
 	})(jQuery);
 	</script>
-<?php
+<?php 
 }
-
 /**
  * Display JavaScript on the page.
  *
  * @since 3.5.0
  */
-function options_general_add_js() {
-?>
+function options_general_add_js()
+{
+    ?>
 <script type="text/javascript">
 	jQuery(document).ready(function($){
 		var $siteName = $( '#wp-admin-bar-site-name' ).children( 'a' ).first(),
-			homeURL = ( <?php echo wp_json_encode( get_home_url() ); ?> || '' ).replace( /^(https?:\/\/)?(www\.)?/, '' );
+			homeURL = ( <?php 
+    echo wp_json_encode(get_home_url());
+    ?>
+ || '' ).replace( /^(https?:\/\/)?(www\.)?/, '' );
 
 		$( '#blogname' ).on( 'input', function() {
 			var title = $.trim( $( this ).val() ) || homeURL;
@@ -83,16 +87,16 @@ function options_general_add_js() {
 		});
 	});
 </script>
-<?php
+<?php 
 }
-
 /**
  * Display JavaScript on the page.
  *
  * @since 3.5.0
  */
-function options_permalink_add_js() {
-	?>
+function options_permalink_add_js()
+{
+    ?>
 <script type="text/javascript">
 jQuery(document).ready(function() {
 	jQuery('.permalink-structure input:radio').change(function() {
@@ -105,16 +109,16 @@ jQuery(document).ready(function() {
 	});
 });
 </script>
-<?php
+<?php 
 }
-
 /**
  * Display JavaScript on the page.
  *
  * @since 3.5.0
  */
-function options_reading_add_js() {
-?>
+function options_reading_add_js()
+{
+    ?>
 <script type="text/javascript">
 	jQuery(document).ready(function($){
 		var section = $('#front-static-pages'),
@@ -127,15 +131,15 @@ function options_reading_add_js() {
  		section.find('input:radio').change(check_disabled);
 	});
 </script>
-<?php
+<?php 
 }
-
 /**
  * Render the site charset setting.
  *
  * @since 3.5.0
  */
-function options_reading_blog_charset() {
-	echo '<input name="blog_charset" type="text" id="blog_charset" value="' . esc_attr( get_option( 'blog_charset' ) ) . '" class="regular-text" />';
-	echo '<p class="description">' . __( 'The <a href="https://codex.wordpress.org/Glossary#Character_set">character encoding</a> of your site (UTF-8 is recommended)' ) . '</p>';
+function options_reading_blog_charset()
+{
+    echo '<input name="blog_charset" type="text" id="blog_charset" value="' . esc_attr(get_option('blog_charset')) . '" class="regular-text" />';
+    echo '<p class="description">' . __('The <a href="https://codex.wordpress.org/Glossary#Character_set">character encoding</a> of your site (UTF-8 is recommended)') . '</p>';
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Random_* Compatibility Library 
  * for using the new PHP 7 random_* API in PHP 5 projects
@@ -25,7 +26,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 /**
  * Since openssl_random_pseudo_bytes() uses openssl's 
  * RAND_pseudo_bytes() API, which has been marked as deprecated by the
@@ -44,17 +44,11 @@ function random_bytes($bytes)
     try {
         $bytes = RandomCompat_intval($bytes);
     } catch (TypeError $ex) {
-        throw new TypeError(
-            'random_bytes(): $bytes must be an integer'
-        );
+        throw new TypeError('random_bytes(): $bytes must be an integer');
     }
-
     if ($bytes < 1) {
-        throw new Error(
-            'Length must be greater than 0'
-        );
+        throw new Error('Length must be greater than 0');
     }
-
     /**
      * $secure is passed by reference. If it's set to false, fail. Note
      * that this will only return false if this function fails to return
@@ -64,20 +58,11 @@ function random_bytes($bytes)
      */
     $secure = true;
     $buf = openssl_random_pseudo_bytes($bytes, $secure);
-    if (
-        $buf !== false
-        &&
-        $secure
-        &&
-        RandomCompat_strlen($buf) === $bytes
-    ) {
+    if ($buf !== false && $secure && RandomCompat_strlen($buf) === $bytes) {
         return $buf;
     }
-
     /**
      * If we reach here, PHP has failed us.
      */
-    throw new Exception(
-        'Could not gather sufficient random data'
-    );
+    throw new Exception('Could not gather sufficient random data');
 }

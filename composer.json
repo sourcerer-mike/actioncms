@@ -1,7 +1,29 @@
 {
   "name": "sourcerer-mike/action-cms",
   "description": "Remove the pain from WordPress and make it a better place.",
+  "config": {
+    "secure-http": false,
+    "vendor-dir": "opt"
+  },
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "automattic/wordpress",
+        "version": "dev-master",
+        "source": {
+          "url": "git://develop.git.wordpress.org/",
+          "type": "git",
+          "reference": "master"
+        }
+      }
+    }
+  ],
   "require-dev": {
-    "symfony/finder": "~3"
+    "automattic/wordpress": "dev-master",
+    "nikic/php-parser": "~2",
+    "phpunit/phpunit": "~5",
+    "symfony/finder": "~3",
+    "symfony/filesystem": "~3"
   }
 }

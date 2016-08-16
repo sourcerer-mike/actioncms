@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Random_* Compatibility Library 
  * for using the new PHP 7 random_* API in PHP 5 projects
@@ -25,11 +26,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 if (!defined('RANDOM_COMPAT_READ_BUFFER')) {
     define('RANDOM_COMPAT_READ_BUFFER', 8);
 }
-
 /**
  * Unless open_basedir is enabled, use /dev/urandom for
  * random numbers in accordance with best practices
@@ -62,7 +61,6 @@ function random_bytes($bytes)
                 $fp = false;
             }
         }
-
         if (!empty($fp)) {
             /**
              * stream_set_read_buffer() does not exist in HHVM
@@ -80,21 +78,14 @@ function random_bytes($bytes)
             }
         }
     }
-
     try {
         $bytes = RandomCompat_intval($bytes);
     } catch (TypeError $ex) {
-        throw new TypeError(
-            'random_bytes(): $bytes must be an integer'
-        );
+        throw new TypeError('random_bytes(): $bytes must be an integer');
     }
-
     if ($bytes < 1) {
-        throw new Error(
-            'Length must be greater than 0'
-        );
+        throw new Error('Length must be greater than 0');
     }
-
     /**
      * This if() block only runs if we managed to open a file handle
      * 
@@ -105,12 +96,11 @@ function random_bytes($bytes)
     if (!empty($fp)) {
         $remaining = $bytes;
         $buf = '';
-
         /**
          * We use fread() in a loop to protect against partial reads
          */
         do {
-            $read = fread($fp, $remaining); 
+            $read = fread($fp, $remaining);
             if ($read === false) {
                 /**
                  * We cannot safely read from the file. Exit the
@@ -125,7 +115,6 @@ function random_bytes($bytes)
             $remaining -= RandomCompat_strlen($read);
             $buf .= $read;
         } while ($remaining > 0);
-        
         /**
          * Is our result valid?
          */
@@ -138,11 +127,8 @@ function random_bytes($bytes)
             }
         }
     }
-
     /**
      * If we reach here, PHP has failed us.
      */
-    throw new Exception(
-        'Error reading from source device'
-    );
+    throw new Exception('Error reading from source device');
 }

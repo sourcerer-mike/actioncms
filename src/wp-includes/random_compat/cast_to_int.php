@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Random_* Compatibility Library
  * for using the new PHP 7 random_* API in PHP 5 projects
@@ -25,9 +26,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 if (!function_exists('RandomCompat_intval')) {
-    
     /**
      * Cast to an integer if we can, safely.
      * 
@@ -49,23 +48,12 @@ if (!function_exists('RandomCompat_intval')) {
         if (is_numeric($number)) {
             $number += 0;
         }
-
-        if (
-            is_float($number)
-            &&
-            $number > ~PHP_INT_MAX
-            &&
-            $number < PHP_INT_MAX
-        ) {
+        if (is_float($number) && $number > ~PHP_INT_MAX && $number < PHP_INT_MAX) {
             $number = (int) $number;
         }
-
         if (is_int($number) || $fail_open) {
             return $number;
         }
-
-        throw new TypeError(
-            'Expected an integer.'
-        );
+        throw new TypeError('Expected an integer.');
     }
 }

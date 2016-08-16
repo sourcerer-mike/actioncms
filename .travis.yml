@@ -11,6 +11,10 @@ matrix:
   include:
   - php: 7
     env: WP_TRAVISCI=travis:js
+  - php: 5.2
+  - php: 5.3
+  - php: 5.4
+  - php: 5.5
   - php: 5.6
   - php: 5.6
     env: WP_TRAVIS_OBJECT_CACHE=true
@@ -31,6 +35,8 @@ matrix:
   - php: hhvm
   - php: nightly
 before_install:
+- composer install
+- php bin/make-action-cms.php
 - git clone https://github.com/WordPress/twentysixteen.git src/wp-content/themes/twentysixteen
 - |
   if [[ "$WP_TRAVISCI" == "travis:phpunit" ]]; then
@@ -55,6 +61,12 @@ before_script:
 - phpenv versions
 - npm --version
 - node --version
-- composer install
-- php make-action-cms.php
 script: grunt $WP_TRAVISCI
+notifications:
+  slack:
+    rooms:
+      secure: WuMCpfgrm0GIdPbYzsGOsakZ5x7QIbEBwD+CPHVXGKbL3ZbqQ+BVcDRnMiwzxjgf1vzg2de0taXCSMGKBxsWce23NZkOnmwPdIB8XOnwDV7T7zylgYD5S7p3gI6gV0l8Y3/gROdXFZap6viC1qRr4E79ow53RKk7E3WyOo7TWqo=
+    on_start: never
+    on_failure: always
+    on_success: change
+    on_pull_requests: false

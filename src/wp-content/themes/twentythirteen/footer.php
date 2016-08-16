@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The template for displaying the footer
  *
@@ -12,15 +13,27 @@
 
 		</div><!-- #main -->
 		<footer id="colophon" class="site-footer" role="contentinfo">
-			<?php get_sidebar( 'main' ); ?>
+			<?php 
+get_sidebar('main');
+?>
 
 			<div class="site-info">
-				<?php do_action( 'twentythirteen_credits' ); ?>
-				<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'twentythirteen' ) ); ?>"><?php printf( __( 'Proudly powered by %s', 'twentythirteen' ), 'WordPress' ); ?></a>
+				<?php 
+do_action('twentythirteen_credits');
+?>
+				<a href="<?php 
+echo esc_url(__('https://wordpress.org/', 'twentythirteen'));
+?>
+"><?php 
+printf(__('Proudly powered by %s', 'twentythirteen'), 'WordPress');
+?>
+</a>
 			</div><!-- .site-info -->
 		</footer><!-- #colophon -->
 	</div><!-- #page -->
 
-	<?php wp_footer(); ?>
+	<?php 
+wp_footer();
+?>
 </body>
 </html>

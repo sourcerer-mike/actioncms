@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Twenty Thirteen back compat functionality
  *
@@ -10,7 +11,6 @@
  * @subpackage Twenty_Thirteen
  * @since Twenty Thirteen 1.0
  */
-
 /**
  * Prevent switching to Twenty Thirteen on old versions of WordPress.
  *
@@ -18,13 +18,13 @@
  *
  * @since Twenty Thirteen 1.0
  */
-function twentythirteen_switch_theme() {
-	switch_theme( WP_DEFAULT_THEME, WP_DEFAULT_THEME );
-	unset( $_GET['activated'] );
-	add_action( 'admin_notices', 'twentythirteen_upgrade_notice' );
+function twentythirteen_switch_theme()
+{
+    switch_theme(WP_DEFAULT_THEME, WP_DEFAULT_THEME);
+    unset($_GET['activated']);
+    add_action('admin_notices', 'twentythirteen_upgrade_notice');
 }
-add_action( 'after_switch_theme', 'twentythirteen_switch_theme' );
-
+add_action('after_switch_theme', 'twentythirteen_switch_theme');
 /**
  * Add message for unsuccessful theme switch.
  *
@@ -33,31 +33,30 @@ add_action( 'after_switch_theme', 'twentythirteen_switch_theme' );
  *
  * @since Twenty Thirteen 1.0
  */
-function twentythirteen_upgrade_notice() {
-	$message = sprintf( __( 'Twenty Thirteen requires at least WordPress version 3.6. You are running version %s. Please upgrade and try again.', 'twentythirteen' ), $GLOBALS['wp_version'] );
-	printf( '<div class="error"><p>%s</p></div>', $message );
+function twentythirteen_upgrade_notice()
+{
+    $message = sprintf(__('Twenty Thirteen requires at least WordPress version 3.6. You are running version %s. Please upgrade and try again.', 'twentythirteen'), $GLOBALS['wp_version']);
+    printf('<div class="error"><p>%s</p></div>', $message);
 }
-
 /**
  * Prevent the Customizer from being loaded on WordPress versions prior to 3.6.
  *
  * @since Twenty Thirteen 1.0
  */
-function twentythirteen_customize() {
-	wp_die( sprintf( __( 'Twenty Thirteen requires at least WordPress version 3.6. You are running version %s. Please upgrade and try again.', 'twentythirteen' ), $GLOBALS['wp_version'] ), '', array(
-		'back_link' => true,
-	) );
+function twentythirteen_customize()
+{
+    wp_die(sprintf(__('Twenty Thirteen requires at least WordPress version 3.6. You are running version %s. Please upgrade and try again.', 'twentythirteen'), $GLOBALS['wp_version']), '', array('back_link' => true));
 }
-add_action( 'load-customize.php', 'twentythirteen_customize' );
-
+add_action('load-customize.php', 'twentythirteen_customize');
 /**
  * Prevent the Theme Preview from being loaded on WordPress versions prior to 3.4.
  *
  * @since Twenty Thirteen 1.0
  */
-function twentythirteen_preview() {
-	if ( isset( $_GET['preview'] ) ) {
-		wp_die( sprintf( __( 'Twenty Thirteen requires at least WordPress version 3.6. You are running version %s. Please upgrade and try again.', 'twentythirteen' ), $GLOBALS['wp_version'] ) );
-	}
+function twentythirteen_preview()
+{
+    if (isset($_GET['preview'])) {
+        wp_die(sprintf(__('Twenty Thirteen requires at least WordPress version 3.6. You are running version %s. Please upgrade and try again.', 'twentythirteen'), $GLOBALS['wp_version']));
+    }
 }
-add_action( 'template_redirect', 'twentythirteen_preview' );
+add_action('template_redirect', 'twentythirteen_preview');

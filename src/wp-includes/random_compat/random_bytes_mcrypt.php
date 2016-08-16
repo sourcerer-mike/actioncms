@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Random_* Compatibility Library 
  * for using the new PHP 7 random_* API in PHP 5 projects
@@ -25,8 +26,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-
 /**
  * Powered by ext/mcrypt (and thankfully NOT libmcrypt)
  * 
@@ -44,33 +43,20 @@ function random_bytes($bytes)
     try {
         $bytes = RandomCompat_intval($bytes);
     } catch (TypeError $ex) {
-        throw new TypeError(
-            'random_bytes(): $bytes must be an integer'
-        );
+        throw new TypeError('random_bytes(): $bytes must be an integer');
     }
-
     if ($bytes < 1) {
-        throw new Error(
-            'Length must be greater than 0'
-        );
+        throw new Error('Length must be greater than 0');
     }
-
     $buf = @mcrypt_create_iv($bytes, MCRYPT_DEV_URANDOM);
-    if (
-        $buf !== false
-        &&
-        RandomCompat_strlen($buf) === $bytes
-    ) {
+    if ($buf !== false && RandomCompat_strlen($buf) === $bytes) {
         /**
          * Return our random entropy buffer here:
          */
         return $buf;
     }
-
     /**
      * If we reach here, PHP has failed us.
      */
-    throw new Exception(
-        'Could not gather sufficient random data'
-    );
+    throw new Exception('Could not gather sufficient random data');
 }

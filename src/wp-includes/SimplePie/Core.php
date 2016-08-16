@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SimplePie
  *
@@ -41,7 +42,6 @@
  * @link http://simplepie.org/ SimplePie
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  */
-
 /**
  * SimplePie class.
  *
@@ -53,5 +53,4 @@
  */
 class SimplePie_Core extends SimplePie
 {
-
 }
